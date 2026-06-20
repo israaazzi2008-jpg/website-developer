@@ -1410,7 +1410,7 @@ export default function App() {
 
                 <div className="space-y-4">
                   <a
-                    href="https://wa.me/213697926715"
+                    href="https://wa.me/213657936584"
                     target="_blank"
                     className="p-4 bg-slate-900/60 hover:bg-slate-900 border border-slate-800 rounded-xl flex items-center gap-4 transition-colors group focus:outline-none"
                     id="contact_channel_whatsapp"
