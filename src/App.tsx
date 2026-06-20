@@ -99,7 +99,7 @@ const PROJECTS: Project[] = [
       'Zero latency responsive interface structure with robust PostgreSQL database persistence'
     ],
     whatsappMessage: 'Bonjour Israa! I love your World Savoury fullstack bakery platform on your portfolio:',
-    liveUrl: 'https://israaazzi2008-jpg.github.io/worldsavoury/'
+    liveUrl: 'https://worldsavoury.vercel.app/'
   },
   {
     id: 'gourmet-bakery',
