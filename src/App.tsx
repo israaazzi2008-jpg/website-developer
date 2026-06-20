@@ -47,6 +47,7 @@ interface Project {
   image: string;
   features: string[];
   whatsappMessage: string;
+  liveUrl?: string;
 }
 
 interface ProgrammingLanguage {
@@ -89,6 +90,23 @@ const SKILLS: Skill[] = [
 
 // 2. Portfolio Project Realities
 const PROJECTS: Project[] = [
+  {
+    id: 'world-savoury',
+    title: 'World Savoury',
+    subtitle: 'Artisan Bakery & Patisserie',
+    description: 'A complete premium full-stack digital storefront and ordering machine built for World Savoury Bakery. Synchronizes oven-fresh culinary catalogs with secure backend databases, processes active customer cart states, and processes secure orders with seamless layout animations.',
+    category: 'fullstack',
+    tags: ['React 19', 'Express.js', 'Node.js', 'PostgreSQL', 'Tailwind CSS'],
+    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
+    features: [
+      'Multi-cuisine baking collections connected to a safe relational store',
+      'Stunning high-resolution graphic cards and secure administrative backend filters',
+      'Express.js order routing pipelines handling instant client-side checkout submissions',
+      'Zero latency responsive interface structure with robust PostgreSQL database persistence'
+    ],
+    whatsappMessage: 'Bonjour Israa! I love your World Savoury fullstack bakery platform on your portfolio:',
+    liveUrl: 'https://israaazzi2008-jpg.github.io/worldsavoury/'
+  },
   {
     id: 'gourmet-bakery',
     title: 'Maison du Grain',
@@ -248,7 +266,77 @@ ORDER BY total_contracts DESC;`,
   }
 ];
 
+// ==========================================
+// MOTION ANIMATION VARIANTS FOR INTERESTING ENTER
+// ==========================================
+const heroContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.25
+    }
+  }
+};
+
+const heroItemVariants = {
+  hidden: { opacity: 0, y: 35 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.0,
+      ease: [0.16, 1, 0.3, 1]
+    }
+  }
+};
+
+const heroBadgeVariants = {
+  hidden: { opacity: 0, scale: 0.85, y: -20 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1]
+    }
+  }
+};
+
+const heroButtonVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 110,
+      damping: 15,
+      mass: 0.9
+    }
+  }
+};
+
+const heroStatsVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: 'easeOut'
+    }
+  }
+};
+
 export default function App() {
+  // Preloader / intro state
+  const [showPreloader, setShowPreloader] = useState(true);
+  const [preloaderProgress, setPreloaderProgress] = useState(0);
+  const [currentLoaderMessage, setCurrentLoaderMessage] = useState('INTEGRATION_SYNC_START...');
+
   // Mobile nav drawer open state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -281,6 +369,52 @@ export default function App() {
   const [contactEmail, setContactEmail] = useState('');
   const [contactMessage, setContactMessage] = useState('');
   const [contactSuccess, setContactSuccess] = useState(false);
+
+  // Dynamic compiler/preloader simulator ticker effect
+  useEffect(() => {
+    const messages = [
+      'SYS_INIT: Booting full-stack website portfolio environment...',
+      'SYS_LOC: Establishing contact servers for Ain Temouchent, Algeria...',
+      'SYS_CERT: Injecting AI & Machine Learning specialized credentials...',
+      'SYS_CERT: Injecting Robotics & Arduino parameters...',
+      'SYS_CERT: Compiling AI Automation & Vibe Coding logic systems...',
+      'SYS_PORT: Querying worldsavoury Gastronomy Explorer project records...',
+      'SYS_OK: Deep-linking WhatsApp gateway +213 657 936 584...',
+      'LOAD_COMPLETED: Web interface ready. Handshake validated.'
+    ];
+
+    const timer = setInterval(() => {
+      setPreloaderProgress((prev) => {
+        const next = prev + Math.floor(Math.random() * 8) + 4;
+        if (next >= 100) {
+          clearInterval(timer);
+          setCurrentLoaderMessage(messages[messages.length - 1]);
+          setTimeout(() => {
+            setShowPreloader(false);
+          }, 800);
+          return 100;
+        }
+        
+        const msgIdx = Math.min(Math.floor((next / 100) * messages.length), messages.length - 2);
+        setCurrentLoaderMessage(messages[msgIdx]);
+        return next;
+      });
+    }, 100);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Lock body scroll while loader is visible
+  useEffect(() => {
+    if (showPreloader) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showPreloader]);
 
   // Tracking Scroll Activities to update Navigation link selections
   useEffect(() => {
@@ -362,7 +496,7 @@ export default function App() {
     });
     text += `\n*Grand Total Balance:* €${cartTotalSum}\n\nProcessed securely via Portfolio Hub.`;
     const encoded = encodeURIComponent(text);
-    window.open(`https://wa.me/213697926715?text=${encoded}`, '_blank');
+    window.open(`https://wa.me/213657936584?text=${encoded}`, '_blank');
   };
 
   // Simulate contact form submission pointing to WhatsApp Handshake
@@ -382,7 +516,7 @@ export default function App() {
       setContactName('');
       setContactEmail('');
       setContactMessage('');
-      window.open(`https://wa.me/213697926715?text=${encodedUrl}`, '_blank');
+      window.open(`https://wa.me/213657936584?text=${encodedUrl}`, '_blank');
     }, 1800);
   };
 
@@ -406,6 +540,56 @@ export default function App() {
 
   return (
     <div className="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-blue-600 selection:text-white antialiased overflow-x-hidden">
+      
+      {/* Dynamic Intro Console Preloader */}
+      <AnimatePresence>
+        {showPreloader && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 0.98, transition: { duration: 0.6, ease: 'easeOut' } }}
+            className="fixed inset-0 z-50 bg-slate-950 flex flex-col items-center justify-center p-6 text-slate-100 selection:bg-none"
+            id="intro_compiler_preloader"
+          >
+            {/* Ambient glows */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.12),transparent_70%)] animate-pulse" />
+            
+            <div className="max-w-md w-full space-y-8 text-center relative z-10">
+              {/* Glowing Icon */}
+              <div className="flex justify-center">
+                <div className="p-4 bg-gradient-to-br from-blue-950 to-slate-900 border border-blue-500/25 rounded-2xl shadow-xl shadow-blue-500/5 animate-pulse">
+                  <Cpu className="w-10 h-10 text-blue-500" />
+                </div>
+              </div>
+
+              {/* Title brand typography */}
+              <div className="space-y-2">
+                <h1 className="text-lg font-bold tracking-[0.25em] text-white uppercase font-mono">
+                  SYS_BOOTING_PORTAL...
+                </h1>
+                <p className="text-[9px] font-bold tracking-[0.3em] text-blue-550 uppercase font-mono">
+                  COMPILATION ACTIVE
+                </p>
+              </div>
+
+              {/* Progress dynamic percentage slider */}
+              <div className="max-w-[240px] mx-auto space-y-3">
+                <div className="flex justify-between items-center text-[10px] font-mono text-slate-500">
+                  <span className="tracking-widest">LOADING WEB SPHERE</span>
+                  <span className="font-extrabold text-blue-400">{preloaderProgress}%</span>
+                </div>
+                
+                <div className="w-full bg-slate-900 h-1 rounded-full overflow-hidden p-0 border border-slate-800">
+                  <motion.div 
+                    className="bg-blue-500 h-full rounded-full"
+                    style={{ width: `${preloaderProgress}%` }}
+                    transition={{ ease: 'easeOut' }}
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       
       {/* ==========================================
           HEADER NAVIGATION CONTROLLERS
@@ -456,7 +640,7 @@ export default function App() {
           {/* Core WhatsApp Direct Launcher */}
           <div className="hidden sm:block">
             <a
-              href="https://wa.me/213697926715"
+              href="https://wa.me/213657936584"
               target="_blank"
               className="py-2.5 px-5 bg-blue-600 hover:bg-blue-500 active:translate-y-0.5 text-xs font-black uppercase tracking-wider text-white rounded-full flex items-center gap-2 transition-all shadow-md shadow-blue-500/15 focus:outline-none"
               id="header_quick_whatsapp_action"
@@ -543,7 +727,7 @@ export default function App() {
 
               <div className="space-y-4 pt-6 border-t border-slate-900">
                 <a
-                  href="https://wa.me/213697926715"
+                  href="https://wa.me/213657936584"
                   target="_blank"
                   className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-xs font-black uppercase text-center text-white rounded-xl flex items-center justify-center gap-2 transition-colors focus:outline-none"
                   id="mobile_drawer_whatsapp_direct"
@@ -551,8 +735,8 @@ export default function App() {
                   <MessageSquare className="w-4 h-4 text-white" />
                   <span>WhatsApp direct</span>
                 </a>
-                <p className="text-[10px] text-slate-500 text-center font-semibold">
-                  Algeria | accepting remote corporate options
+                <p className="text-[10px] text-slate-505 text-center font-semibold">
+                  Algeria, Ain Temouchent | accepting remote corporate options
                 </p>
               </div>
             </motion.div>
@@ -569,56 +753,84 @@ export default function App() {
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.06),transparent_45%)]" />
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_bottom_left,rgba(96,165,250,0.04),transparent_50%)]" />
 
-        <div className="max-w-5xl mx-auto text-center relative z-10 flex flex-col items-center">
+        <motion.div 
+          variants={heroContainerVariants}
+          initial="hidden"
+          animate={showPreloader ? "hidden" : "visible"}
+          className="max-w-5xl mx-auto text-center relative z-10 flex flex-col items-center"
+        >
           
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-600/10 border border-blue-500/20 text-blue-400 rounded-full mb-6">
+          <motion.div 
+            variants={heroBadgeVariants}
+            className="inline-flex items-center gap-2 px-3 py-1 bg-blue-600/10 border border-blue-500/20 text-blue-400 rounded-full mb-6"
+          >
             <Sparkles className="w-3.5 h-3.5" />
             <span className="text-[10px] font-extrabold uppercase tracking-widest font-sans">Full-Stack Web Engineer Portfolio</span>
-          </div>
+          </motion.div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tight leading-tight uppercase max-w-4xl">
+          <motion.h1 
+            variants={heroItemVariants}
+            className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tight leading-tight uppercase max-w-4xl"
+          >
             CRAFTING HIGH-PERFORMANCE <span className="text-blue-500 select-none">FULL-STACK</span> WEBSITES.
-          </h1>
+          </motion.h1>
 
-          <p className="text-slate-400 text-sm sm:text-base md:text-lg max-w-2xl mt-6 leading-relaxed">
+          <motion.p 
+            variants={heroItemVariants}
+            className="text-slate-400 text-sm sm:text-base md:text-lg max-w-2xl mt-6 leading-relaxed"
+          >
             I design and ship complete digital products. Specialized in fast, stable front-end clients, high-performance backend database architectures, and seamless API integrations that deliver real business outcomes.
-          </p>
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-10 w-full sm:w-auto" id="hero_action_launcher">
-            <a
+          <motion.div 
+            variants={heroItemVariants}
+            className="flex flex-col sm:flex-row gap-4 mt-10 w-full sm:w-auto" 
+            id="hero_action_launcher"
+          >
+            <motion.a
+              variants={heroButtonVariants}
               href="#projects"
               className="px-8 py-4 bg-white text-slate-950 hover:bg-slate-100 font-extrabold text-xs uppercase tracking-wider rounded-full transition-all text-center flex items-center justify-center gap-2 group shadow-lg focus:outline-none"
               id="hero_btn_projects"
             >
               <span>Explore My Projects</span>
               <ArrowRight className="w-4 h-4 text-slate-950 transition-transform group-hover:translate-x-1" />
-            </a>
+            </motion.a>
 
-            <a
+            <motion.a
+              variants={heroButtonVariants}
               href="#contact"
               className="px-8 py-4 bg-slate-950 hover:bg-slate-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full border border-slate-800 hover:border-slate-700 transition-all text-center flex items-center justify-center gap-2 focus:outline-none"
               id="hero_btn_contact"
             >
               <span>Connect Strategy</span>
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
 
           {/* Highlights parameters row banner */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 border-t border-slate-900 pt-12 mt-16 w-full" id="hero_metrics_summary">
+          <motion.div 
+            variants={heroItemVariants}
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 border-t border-slate-900 pt-12 mt-16 w-full" 
+            id="hero_metrics_summary"
+          >
             {[
               { num: 'FRONT & BACK', text: 'Full-Stack Integration' },
               { num: 'SUB-200ms', text: 'Target Rendering Load' },
               { num: 'SECURE APIs', text: 'Encrypted Routing Specs' },
               { num: '100% CLEAN', text: 'Standard Strict Typings' },
             ].map((stat, idx) => (
-              <div key={idx} className="text-center p-3 bg-slate-900/20 rounded-xl border border-slate-900">
+              <motion.div 
+                key={idx}
+                variants={heroStatsVariants}
+                className="text-center p-3 bg-slate-900/20 rounded-xl border border-slate-900"
+              >
                 <span className="text-xs sm:text-sm font-black text-white block tracking-widest uppercase">{stat.num}</span>
                 <span className="text-[10px] text-slate-500 font-bold tracking-wider block uppercase mt-0.5">{stat.text}</span>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
       </section>
 
       {/* ==========================================
@@ -673,7 +885,7 @@ export default function App() {
                     role: <span className="text-emerald-400">"Full-Stack Web Engineer"</span>,
                   </p>
                   <p className="text-slate-200 pl-4">
-                    location: <span className="text-emerald-400">"Algeria"</span>,
+                    location: <span className="text-emerald-400">"Algeria, Ain Temouchent"</span>,
                   </p>
                   <p className="text-slate-200 pl-4">
                     philosophy: <span className="text-emerald-400">"Clean full-stack code checkouts."</span>
@@ -717,14 +929,14 @@ export default function App() {
                 
                 <div className="space-y-3.5">
                   <div>
-                    <span className="text-[9px] font-bold text-blue-450 uppercase tracking-widest block">Education</span>
+                    <span className="text-[9px] font-bold text-blue-500 uppercase tracking-widest block">Education</span>
                     <span className="text-xs font-semibold text-slate-350 block mt-1">
                       Student @ Higher School of Applied Sciences
                     </span>
                   </div>
 
                   <div>
-                    <span className="text-[9px] font-bold text-blue-450 uppercase tracking-widest block">Specialized Certificates</span>
+                    <span className="text-[9px] font-bold text-blue-500 uppercase tracking-widest block">Specialized Certificates</span>
                     <div className="flex flex-wrap gap-2 mt-2">
                       {[
                         'AI & Machine Learning',
@@ -743,7 +955,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2" id="about_deliver_points">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4" id="about_deliver_points">
                 {[
                   'Stable modular React components',
                   'Hardened schema interfaces SQL/postgres',
@@ -858,22 +1070,32 @@ export default function App() {
           </div>
 
           {/* Grid architecture for services */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8" id="services_layout_grid">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="services_layout_grid">
             {[
               {
                 title: 'Fast Frontend Clients',
-                desc: 'Highly responsive single page websites coded with strict React + TypeScript and styled using Tailwind. Optimized for sub-second page rendering and perfect cross-device fluidity.',
-                metrics: ['TypeScript types compliance', 'Inter / Poppins typography configs', 'Zero third-party bloating hooks', 'Responsive fluid spatial grids']
+                desc: 'Highly responsive single page websites coded with strict React 19 + TypeScript and styled using modern Tailwind utility layers. Optimized for sub-second visual load and fluid cross-device navigation.',
+                metrics: ['TypeScript types compliance', 'Inter / Space Grotesk typography', 'Clean custom state hooks', 'Dynamic mouse entering triggers']
+              },
+              {
+                title: 'Secure Backends',
+                desc: 'Robust database servers and relational storage layers. Tailored for transaction isolation, relational schema integrity (PostgreSQL/SQL), optimized indexing plans, and bulletproof user auth.',
+                metrics: ['PostgreSQL & SQL structures', 'Stateful authentication guards', 'Encrypted environment stores', 'Relational database modeling']
+              },
+              {
+                title: 'Interactive Dashboards',
+                desc: 'High-performance data visualizers, operational control rooms, and business metrics trackers. Featuring clean spatial layouts, responsive charts, and real-time state synchronizations.',
+                metrics: ['D3 aggregate visual charts', 'Zustand client-side sync state', 'Responsive bento spatial grids', 'Clean CSV/PDF exporters']
               },
               {
                 title: 'High-Integrity APIs',
-                desc: 'Clean REST endpoints compiled with Node.js and Express.js, featuring secure JWT authentication middlewares, request validation schemas, and quick relational database profiling.',
-                metrics: ['Node.js + Express pipeline', 'Relational database schema configs', 'Automated JSON error codes', 'JWT validation layers']
+                desc: 'Scalable REST & middleware controllers routed flawlessly under Express and Node.js. Optimized to handle concurrent request bursts, with standardized error handlers and JWT verification.',
+                metrics: ['Express.js & Node pipelines', 'Strict request validation schemas', 'Standardized JSON error packets', 'Rapid server middleware execution']
               },
               {
                 title: 'WhatsApp Automation',
-                desc: 'Interactive shopping mechanisms and custom layout forms compiled to prepare client requirements briefs, dispatching directly to operators in Algerian/French settings seamlessly.',
-                metrics: ['Client-to-operator formats', 'Dynamic cart calculations states', 'Zero database complex latency', 'Instant submit actions']
+                desc: 'Interactive checkout engines and customized booking fields that pre-format order details into single-click WhatsApp messages. Replaces expensive setup with direct operator connections.',
+                metrics: ['Direct WhatsApp order routing', 'Client-to-operator formats', 'Reactive total sum sliders', 'Zero delay client persistence']
               }
             ].map((srv, idx) => (
               <div 
@@ -884,8 +1106,10 @@ export default function App() {
                 <div>
                   <div className="w-10 h-10 bg-blue-600/10 text-blue-400 rounded-xl flex items-center justify-center border border-blue-500/15 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
                     {idx === 0 && <Laptop className="w-5 h-5" />}
-                    {idx === 1 && <Server className="w-5 h-5" />}
-                    {idx === 2 && <MessageSquare className="w-5 h-5" />}
+                    {idx === 1 && <Database className="w-5 h-5" />}
+                    {idx === 2 && <Grid className="w-5 h-5" />}
+                    {idx === 3 && <Server className="w-5 h-5" />}
+                    {idx === 4 && <MessageSquare className="w-5 h-5" />}
                   </div>
 
                   <h3 className="text-lg font-black text-white uppercase tracking-tight mb-3">
@@ -981,9 +1205,23 @@ export default function App() {
                   <h3 className="text-base font-extrabold text-white tracking-tight group-hover:text-blue-400 transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-xs text-blue-400 font-bold tracking-wide mt-1">
-                    {project.subtitle}
-                  </p>
+                  <div className="flex items-center justify-between mt-1">
+                    <p className="text-xs text-blue-400 font-bold tracking-wide">
+                      {project.subtitle}
+                    </p>
+                    {project.liveUrl && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(project.liveUrl, '_blank', 'noreferrer');
+                        }}
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-blue-600/15 hover:bg-blue-600 border border-blue-500/25 text-[10px] font-black uppercase text-blue-400 hover:text-white rounded-lg transition-all focus:outline-none"
+                      >
+                        <Laptop className="w-3 h-3" />
+                        <span>Live Site</span>
+                      </button>
+                    )}
+                  </div>
 
                   <p className="text-slate-400 text-xs leading-relaxed mt-3 mb-6 line-clamp-3">
                     {project.description}
@@ -1199,6 +1437,24 @@ export default function App() {
                               </div>
                             )}
 
+                          </div>
+                        )}
+
+                        {activeCaseStudy.liveUrl && (
+                          <div className="p-5 bg-gradient-to-br from-blue-950/40 to-slate-900 border border-blue-500/20 rounded-xl mb-4 space-y-3">
+                            <h5 className="text-[10px] font-bold uppercase tracking-wider text-blue-400">Live Web Service</h5>
+                            <p className="text-[11px] text-slate-400 leading-normal">
+                              This website has been built, optimized, and compiled to production. View the live system here:
+                            </p>
+                            <a
+                              href={activeCaseStudy.liveUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="w-full py-2.5 text-center text-xs font-black uppercase text-white bg-blue-600 hover:bg-blue-500 rounded-lg flex items-center justify-center gap-2 transition-all shadow-lg shadow-blue-600/20 focus:outline-none"
+                            >
+                              <Laptop className="w-3.5 h-3.5" />
+                              <span>Visit Live Website</span>
+                            </a>
                           </div>
                         )}
 
@@ -1420,12 +1676,12 @@ export default function App() {
                     </div>
                     <div>
                       <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block">📱 Instant WhatsApp Link</span>
-                      <span className="text-xs font-bold text-slate-200 block mt-0.5">+213 69 79 26 715</span>
+                      <span className="text-xs font-bold text-slate-200 block mt-0.5">+213 65 79 36 584</span>
                     </div>
                   </a>
 
                   <a
-                    href="mailto:isra&.azzi2008@gmail.com"
+                    href="mailto:israa.azzi2008@gmail.com"
                     className="p-4 bg-slate-900/60 hover:bg-slate-900 border border-slate-800 rounded-xl flex items-center gap-4 transition-colors group focus:outline-none"
                     id="contact_channel_email"
                   >
@@ -1447,7 +1703,7 @@ export default function App() {
                     </div>
                     <div>
                       <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block font-sans">📍 Workspace Coordinates</span>
-                      <span className="text-xs font-bold text-slate-200 block mt-0.5">Algeria  ain temouchent (Remote-Only Global Services)</span>
+                      <span className="text-xs font-bold text-slate-200 block mt-0.5">Algeria, Ain Temouchent (Remote/Global)</span>
                     </div>
                   </div>
                 </div>
@@ -1457,7 +1713,7 @@ export default function App() {
               <div className="p-4 bg-slate-900/45 border border-slate-850 rounded-xl mt-8">
                 <span className="text-[9px] font-bold uppercase tracking-widest text-slate-500 block">Operational Availability</span>
                 <p className="text-[11px] text-slate-450 mt-1 leading-normal">
-                  Actively accepting select end-to-end fullstack corporate contracts. Based in Algeria, serving clients globally.
+                  Actively accepting select end-to-end fullstack corporate contracts. Based in Ain Temouchent, Algeria, serving clients globally.
                 </p>
               </div>
             </div>
@@ -1493,7 +1749,7 @@ export default function App() {
                       required
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
-                      placeholder="israa.azzi@gmail.com"
+                      placeholder="your@email.com"
                       className="w-full p-3 text-xs text-slate-300 bg-slate-950 border border-slate-850 rounded-xl focus:outline-none focus:border-blue-500 transition-colors"
                     />
                   </div>
@@ -1559,12 +1815,12 @@ export default function App() {
       <footer className="bg-slate-950 border-t border-slate-900 py-12 px-6 text-center text-xs text-slate-500 font-sans" id="footer_section">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="font-semibold tracking-wide">
-            © 2026 Israa | Full-Stack Web Developer. Algeria  ain temouchent (Accepting Global Work contracts)
+            © 2026 Israa | Full-Stack Web Developer. Algeria, Ain Temouchent (Accepting Global Work contracts)
           </p>
           <div className="flex gap-4">
-            <a href="https://wa.me/213697926715" target="_blank" className="hover:text-white transition-colors">WhatsApp Direct</a>
+            <a href="https://wa.me/213657936584" target="_blank" className="hover:text-white transition-colors">WhatsApp Direct</a>
             <span className="text-slate-800">|</span>
-            <a href="mailto:isra.azzi.developer@gmail.com" className="hover:text-white transition-colors">Email</a>
+            <a href="mailto:israa.azzi2008@gmail.com" className="hover:text-white transition-colors">Email</a>
           </div>
         </div>
       </footer>
