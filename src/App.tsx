@@ -91,7 +91,7 @@ const PROJECTS: Project[] = [
     description: 'A complete premium full-stack digital storefront and ordering machine built for World Savoury Bakery. Synchronizes oven-fresh culinary catalogs with secure backend databases, processes active customer cart states, and processes secure orders with seamless layout animations.',
     category: 'fullstack',
     tags: ['React 19', 'Express.js', 'Node.js', 'PostgreSQL', 'Tailwind CSS'],
-    image: '/src/assets/images/worlds_savoury_logo_1781975551498.jpg',
+    image: '/worlds_savoury_logo.jpg',
     features: [
       'Multi-cuisine baking collections connected to a safe relational store',
       'Stunning high-resolution graphic cards and secure administrative backend filters',
