@@ -67,25 +67,19 @@ const SKILLS: Skill[] = [
   { id: '1', name: 'React 19 & Next.js Core', category: 'frontend', level: 96 },
   { id: '2', name: 'TypeScript', category: 'frontend', level: 95 },
   { id: '3', name: 'Tailwind CSS Engine v4', category: 'frontend', level: 98 },
-  { id: '4', name: 'Asynchronous State (Zustand)', category: 'frontend', level: 92 },
-  { id: '5', name: 'Accessible Semantics / WCAG', category: 'frontend', level: 90 },
 
   // Backend
-  { id: '6', name: 'Node.js & Express.js APIs', category: 'backend', level: 94 },
-  { id: '7', name: 'Relational DBMS (PostgreSQL)', category: 'backend', level: 90 },
-  { id: '8', name: 'Secure JWT Authorization', category: 'backend', level: 93 },
-  { id: '9', name: 'Middleware Validation Rules', category: 'backend', level: 95 },
-  { id: '10', name: 'Caching Systems (Redis)', category: 'backend', level: 85 },
+  { id: '4', name: 'Node.js & Express.js APIs', category: 'backend', level: 94 },
+  { id: '5', name: 'Relational DBMS (PostgreSQL)', category: 'backend', level: 90 },
+  { id: '6', name: 'Secure JWT Authorization', category: 'backend', level: 93 },
 
   // Design / Architecture
-  { id: '11', name: 'Figma to Code Transition', category: 'design', level: 96 },
-  { id: '12', name: 'Interactive UI Mockups', category: 'design', level: 95 },
-  { id: '13', name: 'Contrast & Spatial Grids', category: 'design', level: 94 },
+  { id: '7', name: 'Figma to Code Transition', category: 'design', level: 96 },
+  { id: '8', name: 'Contrast & Spatial Grids', category: 'design', level: 94 },
 
   // DevOps / Deploy
-  { id: '14', name: 'Docker Containers', category: 'devops', level: 88 },
-  { id: '15', name: 'CI/CD Pipelines Workflow', category: 'devops', level: 85 },
-  { id: '16', name: 'SSL & Domain Gateway Routes', category: 'devops', level: 92 },
+  { id: '9', name: 'Docker Containers', category: 'devops', level: 88 },
+  { id: '10', name: 'SSL & Domain Gateway Routes', category: 'devops', level: 92 },
 ];
 
 // 2. Portfolio Project Realities
@@ -97,7 +91,7 @@ const PROJECTS: Project[] = [
     description: 'A complete premium full-stack digital storefront and ordering machine built for World Savoury Bakery. Synchronizes oven-fresh culinary catalogs with secure backend databases, processes active customer cart states, and processes secure orders with seamless layout animations.',
     category: 'fullstack',
     tags: ['React 19', 'Express.js', 'Node.js', 'PostgreSQL', 'Tailwind CSS'],
-    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
+    image: '/src/assets/images/worlds_savoury_logo_1781975551498.jpg',
     features: [
       'Multi-cuisine baking collections connected to a safe relational store',
       'Stunning high-resolution graphic cards and secure administrative backend filters',
@@ -263,6 +257,31 @@ ORDER BY total_contracts DESC;`,
   </p>
 </article>`,
     color: 'text-purple-400 border-purple-500/20 bg-purple-500/5'
+  },
+  {
+    id: 'c-lang',
+    name: 'C Programming',
+    level: 88,
+    icon: <Code2 className="w-4 h-4 text-indigo-400" />,
+    concept: 'Low-level structural language guaranteeing high-performance execution speed and native system interactions.',
+    useCase: 'Writing hardware controller commands, executing heavy statistical algorithms, and microelectronics automation.',
+    codeSnippet: `// High-efficiency hardware controller signal
+#include <stdio.h>
+
+typedef struct {
+    int sensor_id;
+    float frequency;
+    int status_active;
+} ControllerConfig;
+
+void initialize_system(ControllerConfig* config) {
+    if (config->status_active) {
+        printf("Booting sensor id %d at %.2f Hz\\n", 
+               config->sensor_id, 
+               config->frequency);
+    }
+}`,
+    color: 'text-indigo-400 border-indigo-500/20 bg-indigo-500/5'
   }
 ];
 
@@ -770,9 +789,9 @@ export default function App() {
 
           <motion.h1 
             variants={heroItemVariants}
-            className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tight leading-tight uppercase max-w-4xl"
+            className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-tight max-w-4xl"
           >
-            CRAFTING HIGH-PERFORMANCE <span className="text-blue-500 select-none">FULL-STACK</span> WEBSITES.
+            Crafting high-performance <span className="text-blue-500 font-mono select-none font-extrabold">&lt;full-stack/&gt;</span> websites.
           </motion.h1>
 
           <motion.p 
