@@ -644,12 +644,30 @@ export default function App() {
                   <span className="text-[10px] font-mono text-slate-500">profile_specs.ts</span>
                 </div>
 
-                <div className="space-y-4 font-mono text-xs md:text-sm">
+                <div className="space-y-4 font-mono text-[11px] md:text-xs">
                   <p className="text-blue-400">
                     <span className="text-slate-500">&gt;</span> const developer = &#123;
                   </p>
                   <p className="text-slate-200 pl-4">
                     name: <span className="text-emerald-400">"Israa Azzi"</span>,
+                  </p>
+                  <p className="text-slate-200 pl-4">
+                    education: <span className="text-emerald-400">"Higher School of Applied Sciences"</span>,
+                  </p>
+                  <p className="text-slate-200 pl-4">
+                    certificates: <span className="text-purple-400">[</span>
+                  </p>
+                  <p className="text-emerald-400 pl-8">
+                    "AI & Machine Learning",
+                  </p>
+                  <p className="text-emerald-400 pl-8">
+                    "Robotics & Arduino",
+                  </p>
+                  <p className="text-emerald-400 pl-8">
+                    "AI Automation & Vibe Coding"
+                  </p>
+                  <p className="text-purple-400 pl-4">
+                    ],
                   </p>
                   <p className="text-slate-200 pl-4">
                     role: <span className="text-emerald-400">"Full-Stack Web Engineer"</span>,
@@ -658,10 +676,7 @@ export default function App() {
                     location: <span className="text-emerald-400">"Algeria"</span>,
                   </p>
                   <p className="text-slate-200 pl-4">
-                    languages: <span className="text-purple-400">[ "TypeScript", "JavaScript", "Python", "SQL" ]</span>,
-                  </p>
-                  <p className="text-slate-200 pl-4">
-                    philosophy: <span className="text-emerald-400">"No mock layers. Clean production codebases only."</span>
+                    philosophy: <span className="text-emerald-400">"Clean full-stack code checkouts."</span>
                   </p>
                   <p className="text-blue-400">
                     &#125;;
@@ -685,13 +700,50 @@ export default function App() {
                 The engineer behind dynamic full-stack experiences
               </h2>
               <p className="text-slate-400 text-sm leading-relaxed">
-                I approach full-stack websites with rigorous technical discipline and clean design thinking. A well-designed digital platform must have elegant visual layout styling, but its true power lies in how standard-compliant its backend data integrations connect with its client layer.
+                I am a dedicated student in the <strong>Higher School of Applied Sciences</strong>, combining academic excellence with state-of-the-art technical certificates. I approach full-stack websites with rigorous technical discipline and clean design thinking.
               </p>
               <p className="text-slate-400 text-sm leading-relaxed">
-                By bridging the gap between responsive frontend scripting and secure backend systems, I remove team communication bottlenecks, prevent slow rendering times, and write cohesive code that is fully functional and highly maintainable.
+                By bridging the gap between responsive frontend workflows and solid backend servers, I build standard-compliant websites, optimize routing processes, and deliver premium client solutions.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4" id="about_deliver_points">
+              {/* Credentials Highlight Box */}
+              <div className="p-5 bg-slate-900 border border-slate-800/80 rounded-2xl space-y-4" id="education_credentials_highlights">
+                <div className="flex items-center gap-2 pb-2.5 border-b border-slate-800/60">
+                  <Trophy className="w-4 h-4 text-amber-500" />
+                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-slate-200">
+                    Credentials & Certifications
+                  </span>
+                </div>
+                
+                <div className="space-y-3.5">
+                  <div>
+                    <span className="text-[9px] font-bold text-blue-450 uppercase tracking-widest block">Education</span>
+                    <span className="text-xs font-semibold text-slate-350 block mt-1">
+                      Student @ Higher School of Applied Sciences
+                    </span>
+                  </div>
+
+                  <div>
+                    <span className="text-[9px] font-bold text-blue-450 uppercase tracking-widest block">Specialized Certificates</span>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {[
+                        'AI & Machine Learning',
+                        'Robotics & Arduino',
+                        'AI Automation & Vibe Coding'
+                      ].map((cert, idx) => (
+                        <span 
+                          key={idx} 
+                          className="px-2.5 py-1 rounded bg-blue-500/5 border border-blue-500/15 text-xs font-semibold text-blue-400"
+                        >
+                          {cert}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2" id="about_deliver_points">
                 {[
                   'Stable modular React components',
                   'Hardened schema interfaces SQL/postgres',
@@ -1373,7 +1425,7 @@ export default function App() {
                   </a>
 
                   <a
-                    href="mailto:isra.azzi.developer@gmail.com"
+                    href="mailto:isra&.azzi2008@gmail.com"
                     className="p-4 bg-slate-900/60 hover:bg-slate-900 border border-slate-800 rounded-xl flex items-center gap-4 transition-colors group focus:outline-none"
                     id="contact_channel_email"
                   >
@@ -1382,7 +1434,7 @@ export default function App() {
                     </div>
                     <div>
                       <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block font-sans">📧 Enterprise Mailbox</span>
-                      <span className="text-xs font-bold text-slate-200 block mt-0.5">isra.azzi2008@gmail.com</span>
+                      <span className="text-xs font-bold text-slate-200 block mt-0.5">israa.azzi2008@gmail.com</span>
                     </div>
                   </a>
 
@@ -1395,7 +1447,7 @@ export default function App() {
                     </div>
                     <div>
                       <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block font-sans">📍 Workspace Coordinates</span>
-                      <span className="text-xs font-bold text-slate-200 block mt-0.5">Algeria (ain temouchent)</span>
+                      <span className="text-xs font-bold text-slate-200 block mt-0.5">Algeria  ain temouchent (Remote-Only Global Services)</span>
                     </div>
                   </div>
                 </div>
@@ -1441,7 +1493,7 @@ export default function App() {
                       required
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
-                      placeholder="your@email.com"
+                      placeholder="israa.azzi@gmail.com"
                       className="w-full p-3 text-xs text-slate-300 bg-slate-950 border border-slate-850 rounded-xl focus:outline-none focus:border-blue-500 transition-colors"
                     />
                   </div>
@@ -1507,12 +1559,12 @@ export default function App() {
       <footer className="bg-slate-950 border-t border-slate-900 py-12 px-6 text-center text-xs text-slate-500 font-sans" id="footer_section">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="font-semibold tracking-wide">
-            © 2026 Israa | Full-Stack Web Developer. Algeria (Accepting Global Work contracts)
+            © 2026 Israa | Full-Stack Web Developer. Algeria  ain temouchent (Accepting Global Work contracts)
           </p>
           <div className="flex gap-4">
             <a href="https://wa.me/213697926715" target="_blank" className="hover:text-white transition-colors">WhatsApp Direct</a>
             <span className="text-slate-800">|</span>
-            <a href="mailto:isra.azzi2008@gmail.com" className="hover:text-white transition-colors">Email</a>
+            <a href="mailto:isra.azzi.developer@gmail.com" className="hover:text-white transition-colors">Email</a>
           </div>
         </div>
       </footer>
