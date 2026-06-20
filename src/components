@@ -1,0 +1,214 @@
+import React, { useState } from 'react';
+import { Send, MessageSquare, Mail, Github, MapPin, ClipboardCheck, ArrowUpRight } from 'lucide-react';
+import { motion } from 'motion/react';
+
+export default function InteractiveContact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    company: '',
+    interest: 'custom-platform',
+    message: '',
+  });
+  const [copied, setCopied] = useState(false);
+
+  const interestLabels: Record<string, string> = {
+    'custom-platform': 'Custom Web Platform Solutions',
+    'ecommerce': 'High-Conversion E-Commerce Shop',
+    'landing-page': 'Optimized Brand Landing Page',
+    'audit-performance': 'Performance & PageSpeed Audit',
+  };
+
+  const getSmsPayload = () => {
+    const interest = interestLabels[formData.interest] || formData.interest;
+    const greeting = formData.name ? `Hello Israa, my name is ${formData.name}${formData.company ? ` from ${formData.company}` : ''}.` : 'Hello Israa,';
+    return `${greeting}
+
+I am reaching out regarding a: *${interest}* project.
+
+Message Details:
+"${formData.message || 'I would like to explore a partnership to collaborate on custom web designs.'}"
+
+-- Sent via Israa's Web Workspace Client`;
+  };
+
+  const handleWhatsAppSend = () => {
+    const text = encodeURIComponent(getSmsPayload());
+    window.open(`https://wa.me/213697926715?text=${text}`, '_blank');
+  };
+
+  const handleEmailSend = () => {
+    const subject = encodeURIComponent(`Project Consultation: ${interestLabels[formData.interest] || 'Inquiry'}`);
+    const body = encodeURIComponent(getSmsPayload());
+    window.open(`mailto:israa.azzi2008@gmail.com?subject=${subject}&body=${body}`, '_blank');
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(getSmsPayload());
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+      {/* Contact Metadata Block */}
+      <div className="lg:col-span-5 flex flex-col justify-between bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 p-8 rounded-3xl">
+        <div className="space-y-6">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-400">Collaboration Gateway</span>
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight mt-1">Let's build something exceptional.</h3>
+            <p className="text-slate-400 text-xs mt-3 leading-relaxed">
+              Whether you are looking to launch a robust online marketplace, accelerate your landing conversions, or construct a custom enterprise architecture, get in touch to design the optimal development path.
+            </p>
+          </div>
+
+          <div className="space-y-4 pt-4 border-t border-slate-800/60">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-blue-500/10 text-blue-400 rounded-xl">
+                <MessageSquare className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Direct WhatsApp Hub</p>
+                <a 
+                  href="https://wa.me/213697926715" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="text-sm font-semibold text-white hover:text-blue-400 transition-colors flex items-center gap-1.5"
+                >
+                  <span>+213 (0) 697 926 715</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-blue-500/10 text-blue-400 rounded-xl">
+                <Mail className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Professional Email</p>
+                <a 
+                  href="mailto:israa.azzi2008@gmail.com"
+                  className="text-sm font-semibold text-white hover:text-blue-400 transition-colors flex items-center gap-1.5"
+                >
+                  <span>israa.azzi2008@gmail.com</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-blue-500/10 text-blue-400 rounded-xl">
+                <Github className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Source Control & Auth</p>
+                <a 
+                  href="https://github.com/israadev" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="text-sm font-semibold text-white hover:text-blue-400 transition-colors flex items-center gap-1.5"
+                >
+                  <span>github.com/israadev</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 pt-6 border-t border-slate-800/60 flex items-center gap-2 text-xs text-slate-500">
+          <MapPin className="w-4 h-4 text-slate-650" />
+          <span>Operational Worldwide • Remote Client Consulting</span>
+        </div>
+      </div>
+
+      {/* Interactive Communication Center */}
+      <div className="lg:col-span-7 bg-slate-900/40 border border-slate-800/80 rounded-3xl p-6 md:p-8 flex flex-col gap-5 justify-between">
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Your Full Name</label>
+              <input
+                type="text"
+                placeholder="Farid Bouchama"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:border-blue-500 transition-colors"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Company / Venture Name</label>
+              <input
+                type="text"
+                placeholder="Apex Industries"
+                value={formData.company}
+                onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                className="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:border-blue-500 transition-colors"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Primary Area of Interest</label>
+            <select
+              value={formData.interest}
+              onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
+              className="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-300 focus:outline-none focus:border-blue-500 transition-colors"
+            >
+              <option value="custom-platform">Custom Web Platform Solutions</option>
+              <option value="ecommerce">High-Conversion E-Commerce Shop</option>
+              <option value="landing-page">Optimized Brand Landing Page</option>
+              <option value="audit-performance">Performance & PageSpeed Audit</option>
+            </select>
+          </div>
+
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Custom Message Parameters</label>
+            <textarea
+              placeholder="Detail your target design guidelines, dynamic flow patterns, or core timeline objectives..."
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              className="w-full min-h-[110px] p-4 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-blue-500 resize-none transition-colors"
+            />
+          </div>
+
+          {/* Formatted Message Payload Preview */}
+          <div className="bg-slate-950 border border-slate-850 p-4 rounded-xl relative group">
+            <span className="text-[9px] font-bold uppercase tracking-wider text-slate-500 block mb-1">
+              Active Payload Preview
+            </span>
+            <pre className="text-[10px] text-slate-400 font-mono leading-relaxed whitespace-pre-wrap max-h-[110px] overflow-y-auto pr-8">
+              {getSmsPayload()}
+            </pre>
+            <button
+              onClick={handleCopy}
+              className="absolute top-4 right-4 bg-slate-900 border border-slate-800 hover:bg-slate-850 text-slate-400 hover:text-white p-1.5 rounded-lg text-xs transition-all flex items-center gap-1 active:scale-95"
+              title="Copy payload to clipboard"
+            >
+              <ClipboardCheck className={`w-3.5 h-3.5 ${copied ? 'text-green-400' : ''}`} />
+              <span className="text-[9px] font-semibold">{copied ? 'Copied' : 'Copy'}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Action routing */}
+        <div className="flex flex-col sm:flex-row gap-3 mt-4">
+          <button
+            onClick={handleWhatsAppSend}
+            className="flex-1 py-3 text-xs font-bold text-white bg-green-600 hover:bg-green-500 rounded-xl transition-all uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-green-600/10 active:translate-y-0.5"
+          >
+            <MessageSquare className="w-4 h-4 fill-white" />
+            <span>Engage via WhatsApp</span>
+          </button>
+          <button
+            onClick={handleEmailSend}
+            className="flex-1 py-3 text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition-all uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-blue-500/10 active:translate-y-0.5"
+          >
+            <Mail className="w-4 h-4" />
+            <span>Send Secure Email</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
